@@ -5,11 +5,13 @@ const JWT_SECRET = 'dev-secret';
 
 module.exports = (req, res, next) => {
   // eslint-disable-next-line max-len
-  if (!req.cookies.jwt) { // поверяем, есть ли в заголовке cookie jwt-токен (тут уже распарсенное значение)
+  const { authorization } = req.headers;
+
+  if (!authorization || !authorization.startsWith('Bearer ')) {
     const err = new UnauthorizedError('Необходима авторизация');
     next(err);
   }
-  const token = req.cookies.jwt;
+  const token = authorization.replace('Bearer ', '');
   let payload;
   try {
     payload = jwt.verify(token, JWT_SECRET); // верифицируем токен

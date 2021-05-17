@@ -17,14 +17,9 @@ const login = (req, res, next) => {
       const token = jwt.sign(
         { _id: user._id },
         JWT_SECRET,
-        { expiresIn: '7d' },
+        { expiresIn: '7d' }, '',
       );
-      res.cookie('jwt', token, {
-        maxAge: 3600000 * 24 * 7,
-        httpOnly: true,
-        sameSite: true,
-      })
-        .send({ message: 'Вы успешно вошли в аккаунт!' });
+      res.send({ token });
     })
     .catch((err) => { throw new UnauthorizedError(err.message); })
     .catch(next);

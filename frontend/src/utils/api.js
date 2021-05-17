@@ -60,7 +60,7 @@ class Api {
     }
 
     putLike (cardId) {
-        return fetch(`${this._url}cards/likes/${cardId}`, {
+        return fetch(`${this._url}cards/${cardId}/likes`, {
             method: 'PUT',
             headers: this.headers,
         })
@@ -68,7 +68,7 @@ class Api {
     }
 
     deleteLike (cardId) {
-        return fetch(`${this._url}cards/likes/${cardId}`, {
+        return fetch(`${this._url}cards/${cardId}likes`, {
             method: 'DELETE',
             headers: this.headers,
         })
@@ -88,9 +88,9 @@ class Api {
 }
 
 const api = new Api({
-    url: 'https://mesto.nomoreparties.co/v1/cohort-20/',
+    url: 'https://api.mesto.polinap.nomoredomains.icu/',
     headers: {
-        authorization: '4ea02280-fa61-4e20-88ce-aa4e93f95126',
+        authorization: `${localStorage.getItem('jwt')}`,
         'Content-Type': 'application/json'
     }
 });
