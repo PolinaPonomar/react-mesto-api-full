@@ -19,7 +19,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "npm run build && scp -r ./build/* polinaponomareva@178.154.228.134:/home/polinaponomareva/mesto-frontend"
+    "deploy": "npm run build && scp -r ./build/* polinaponomareva@178.154.226.47:/home/polinaponomareva/react-mesto-api-full/frontend"
   },
   "eslintConfig": {
     "extends": [
