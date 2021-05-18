@@ -116,8 +116,8 @@ function App() {
             if (jwt) { //если с токеном все ок  
                 auth.getContent(jwt)
                 .then((data) => {
-                    if (data.data.email) { //проверяем, есть ли у пришедших данных емайл
-                        setEmail(data.data.email); // заполняем емайл в шапке аккаунта пользователя
+                    if (data.email) { //проверяем, есть ли у пришедших данных емайл
+                        setEmail(data.email); // заполняем емайл в шапке аккаунта пользователя
                         setLoggedIn(true);
                         history.push('/');
                     }
