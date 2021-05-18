@@ -2,8 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
-const cookieParser = require('cookie-parser');
 const { celebrate, Joi, errors } = require('celebrate');
+const cors = require('cors');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const auth = require('./middlewares/auth');
@@ -36,8 +36,8 @@ app.use(helmet());
 
 // парсинг данных
 app.use(express.json());
-// парсинг куки
-app.use(cookieParser());
+
+app.use(cors());
 
 // подключаем логгер запросов
 app.use(requestLogger);
