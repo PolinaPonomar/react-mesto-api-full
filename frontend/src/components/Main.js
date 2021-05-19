@@ -32,7 +32,7 @@ function Main(props) {
                     )
                 }
             </section>
-
+            
         </main>
     );
 }

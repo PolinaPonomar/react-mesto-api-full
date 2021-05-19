@@ -34,6 +34,11 @@ function App() {
     const [selectedCard,setSelectedCard] = useState({isOpen: false, link: '', name: ''});
     const [cards,setCards] = useState([]);
 
+    // Эффект, вызываемый при обновлении статуса, залогинен юзер или нет. Если залогинен - юзер сразу попадает на свой аккаунт + таким образом обновляется почта
+    useEffect(() => {
+        tokenCheck();
+    }, [loggedIn])
+
     // Эффект, вызываемый при монтировании компонента
     useEffect( () => {
         Promise.all([api.getUserInfo(), api.getInitialCards()])
@@ -41,17 +46,12 @@ function App() {
                 // Добавление информации о пользователе с сервера на страницу:
                 setCurrentUser(dataUserInfo); // поля объекта: avatar, name, about, _id и cohort
                 // Добавление существующих на сервере карточек на страницу:
-                setCards(dataCards);
+                setCards(dataCards.reverse());
             })
             .catch((err) => {
                 console.log(err);
             })
     }, [] )
-
-    // Эффект, вызываемый при обновлении статуса, залогинен юзер или нет. Если залогинен - юзер сразу попадает на свой аккаунт + таким образом обновляется почта
-    useEffect(() => {
-        tokenCheck();
-    }, [loggedIn])
 
     const handleMenuClick = () => {
         setIsMenuPopupOpen(true);

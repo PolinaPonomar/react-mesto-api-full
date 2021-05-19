@@ -68,7 +68,7 @@ class Api {
     }
 
     deleteLike (cardId) {
-        return fetch(`${this._url}cards/${cardId}likes`, {
+        return fetch(`${this._url}cards/${cardId}/likes`, {
             method: 'DELETE',
             headers: this.headers,
         })
@@ -85,12 +85,17 @@ class Api {
         })
         .then(this._onError)
     }
+
+    updateAuthorizationToken () {
+        this.headers.authorization = `Bearer ${localStorage.getItem('jwt')}`;
+    }
 }
 
 const api = new Api({
-    url: 'https://api.mesto.polinap.nomoredomains.icu/',
+    // url: 'https://api.mesto.polinap.nomoredomains.icu/',
+    url: 'http://localhost:3005/', 
     headers: {
-        authorization: `${localStorage.getItem('jwt')}`,
+        authorization: `Bearer ${localStorage.getItem('jwt')}`,
         'Content-Type': 'application/json'
     }
 });

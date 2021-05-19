@@ -1,6 +1,8 @@
 const cors = require('cors');
 
-const whitelist = ['http://mesto.polina.ponomareva.nomoredomains.icu', 'https://mesto.polina.ponomareva.nomoredomains.icu'];
+const whitelist = ['http://mesto.polina.ponomareva.nomoredomains.icu',
+  'https://mesto.polina.ponomareva.nomoredomains.icu',
+  'http://localhost:3000'];
 const corsOptions = {
   origin(origin, callback) {
     if (whitelist.indexOf(origin) !== -1 || !origin) {
