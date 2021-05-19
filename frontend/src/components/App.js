@@ -41,17 +41,19 @@ function App() {
 
     // Эффект, вызываемый при монтировании компонента
     useEffect( () => {
-        Promise.all([api.getUserInfo(), api.getInitialCards()])
-            .then(([dataUserInfo, dataCards]) => {
-                // Добавление информации о пользователе с сервера на страницу:
-                setCurrentUser(dataUserInfo); // поля объекта: avatar, name, about, _id и cohort
-                // Добавление существующих на сервере карточек на страницу:
-                setCards(dataCards.reverse());
-            })
-            .catch((err) => {
-                console.log(err);
-            })
-    }, [] )
+        if (localStorage.getItem('jwt')) {
+            Promise.all([api.getUserInfo(), api.getInitialCards()])
+                .then(([dataUserInfo, dataCards]) => {
+                    // Добавление информации о пользователе с сервера на страницу:
+                    setCurrentUser(dataUserInfo); // поля объекта: avatar, name, about, _id и cohort
+                    // Добавление существующих на сервере карточек на страницу:
+                    setCards(dataCards.reverse());
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+        }
+    }, [loggedIn] )
 
     const handleMenuClick = () => {
         setIsMenuPopupOpen(true);
@@ -101,6 +103,7 @@ function App() {
                 if (data.token) { //проверяем, есть ли у пришедших данных токен
                     localStorage.setItem('jwt', data.token); // сохраняем токен пользователя
                     setLoggedIn(true);
+                    api.updateAuthorizationToken(); //обновить информация о токене для api
                     history.push('/');
                 }
             })
@@ -135,6 +138,7 @@ function App() {
         setIsMenuPopupOpen(false); // закрыть меню для моб. версии
         setLoggedIn(false);
         setEmail('');
+        api.updateAuthorizationToken(); // обновить информация о токене для api
         history.push('/sign-in');
     }
 
