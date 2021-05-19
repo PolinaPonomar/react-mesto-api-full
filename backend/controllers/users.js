@@ -6,7 +6,7 @@ const BadRequestError = require('../errors/bad-request-err');
 const ConflictError = require('../errors/conflict-err');
 const NotFoundError = require('../errors/not-found-err');
 
-const JWT_SECRET = 'dev-secret';
+const { NODE_ENV, JWT_SECRET } = process.env;
 const SOLT_ROUNDS = 10;
 const MONGO_DUPLICATE_ERROR_CODE = 11000;
 
@@ -16,7 +16,7 @@ const login = (req, res, next) => {
     .then((user) => {
       const token = jwt.sign(
         { _id: user._id },
-        JWT_SECRET,
+        NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
         { expiresIn: '7d' }, '',
       );
       res.send({ token });
