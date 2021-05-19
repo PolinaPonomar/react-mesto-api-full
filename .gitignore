@@ -17,6 +17,8 @@ node_modules
 .idea
 .vscode
 
+.env
+
 # FRONTEND
 # dependencies
 /node_modules
