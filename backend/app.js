@@ -4,9 +4,9 @@ const mongoose = require('mongoose');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const { celebrate, Joi, errors } = require('celebrate');
+const cors = require('cors');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
-const cors = require('./middlewares/cors');
 const auth = require('./middlewares/auth');
 const centralizedErrorHandling = require('./middlewares/centralizedErrorHandling');
 const { login, createUser } = require('./controllers/users');
@@ -38,8 +38,7 @@ app.use(helmet());
 // парсинг данных
 app.use(express.json());
 
-app.options('*', cors);
-app.use(cors);
+app.use(cors());
 
 // подключаем логгер запросов
 app.use(requestLogger);
