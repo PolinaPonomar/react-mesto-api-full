@@ -1,5 +1,4 @@
 export const BASE_URL = 'https://api.mesto.polinap.nomoredomains.icu';
-// export const BASE_URL = 'http://localhost:3005';
 
 const checkResponse = (res) => {
     if(res.ok) {

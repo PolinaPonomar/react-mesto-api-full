@@ -1,7 +1,6 @@
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
-const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const { celebrate, Joi, errors } = require('celebrate');
 const cors = require('cors');
@@ -24,13 +23,6 @@ mongoose.connect(MONGO_URL, {
   useCreateIndex: true,
   useFindAndModify: false,
 });
-
-// защита от DoS-атак
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // limit each IP to 100 requests per windowMs
-});
-app.use(limiter);
 
 // простановкa security-заголовков для API
 app.use(helmet());
