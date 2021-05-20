@@ -19,7 +19,7 @@ import ImagePopup from './ImagePopup';
 
 function App() {
     const history = useHistory();
-    const [currentUser, setCurrentUser] = useState({});
+    const [currentUser, setCurrentUser] = useState({avatar: '#', name: '', about: '', _id: ''});
     // стейты, касающиеся авторизации
     const [loggedIn, setLoggedIn] = useState(false);
     const [email, setEmail] = useState('');
@@ -31,7 +31,7 @@ function App() {
     const [isEditProfilePopupOpen,setIsEditProfilePopupOpen] = useState(false);
     const [isAddPlacePopupOpen,setIsAddPlacePopupOpen] = useState(false);
 
-    const [selectedCard,setSelectedCard] = useState({isOpen: false, link: '', name: ''});
+    const [selectedCard,setSelectedCard] = useState({isOpen: false, link: '#', name: ''});
     const [cards,setCards] = useState([]);
 
     // Эффект, вызываемый при обновлении статуса, залогинен юзер или нет. Если залогинен - юзер сразу попадает на свой аккаунт + таким образом обновляется почта
@@ -45,7 +45,7 @@ function App() {
             Promise.all([api.getUserInfo(), api.getInitialCards()])
                 .then(([dataUserInfo, dataCards]) => {
                     // Добавление информации о пользователе с сервера на страницу:
-                    setCurrentUser(dataUserInfo); // поля объекта: avatar, name, about, _id и cohort
+                    setCurrentUser(dataUserInfo); // поля объекта: avatar, name, about, _id
                     // Добавление существующих на сервере карточек на страницу:
                     setCards(dataCards.reverse());
                 })
@@ -254,7 +254,7 @@ function App() {
                     </Route>
                 </Switch>
                 <Footer/>
-
+                
                 <InfoTooltip isOpen={isInfoTooltipOpen} isRegistrationSuccessful={isRegistrationSuccessful} onClose={closeAllPopups}/>
 
                 <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onUpdateAvatar={handleUpdateAvatar} onClose={closeAllPopups}/>
