@@ -62,7 +62,8 @@ app.post('/signup', celebrate({
 app.use(auth);
 app.use('/users', usersRouter);
 app.use('/cards', cardsRouter);
-app.use('*', otherWaysRouter);
+app.use('/:wrongRoute', otherWaysRouter);
+// app.use('*', otherWaysRouter);
 
 // подключаем логгер ошибок
 app.use(errorLogger);
