@@ -38,7 +38,11 @@ app.use(helmet());
 // парсинг данных
 app.use(express.json());
 
-app.use(cors());
+app.use(cors({
+  origin: ['http://mesto.polina.ponomareva.nomoredomains.icu',
+    'https://mesto.polina.ponomareva.nomoredomains.icu'],
+  // 'http://localhost:3000'],
+}));
 
 // подключаем логгер запросов
 app.use(requestLogger);
