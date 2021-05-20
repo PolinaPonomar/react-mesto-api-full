@@ -92,8 +92,8 @@ class Api {
 }
 
 const api = new Api({
-    // url: 'https://api.mesto.polinap.nomoredomains.icu/',
-    url: 'http://localhost:3005/',
+    url: 'https://api.mesto.polinap.nomoredomains.icu/',
+    // url: 'http://localhost:3005/',
     headers: {
         authorization: `Bearer ${localStorage.getItem('jwt')}`,
         'Content-Type': 'application/json'
