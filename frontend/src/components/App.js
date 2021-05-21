@@ -37,7 +37,7 @@ function App() {
     // Эффект, вызываемый при обновлении статуса, залогинен юзер или нет. Если залогинен - юзер сразу попадает на свой аккаунт + таким образом обновляется почта
     useEffect(() => {
         tokenCheck();
-    }, [loggedIn])
+    }, [history])
 
     // Эффект, вызываемый при монтировании компонента
     useEffect( () => {
@@ -53,7 +53,7 @@ function App() {
                     console.log(err);
                 })
         }
-    }, [loggedIn] )
+    }, [] )
 
     const handleMenuClick = () => {
         setIsMenuPopupOpen(true);
@@ -102,8 +102,17 @@ function App() {
             .then((data) => { 
                 if (data.token) { //проверяем, есть ли у пришедших данных токен
                     localStorage.setItem('jwt', data.token); // сохраняем токен пользователя
+                    tokenCheck();
                     setLoggedIn(true);
                     api.updateAuthorizationToken(); //обновить информация о токене для api
+                    Promise.all([api.getUserInfo(), api.getInitialCards()])
+                        .then(([dataUserInfo, dataCards]) => {
+                            setCurrentUser(dataUserInfo);
+                            setCards(dataCards.reverse());
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                        })
                     history.push('/');
                 }
             })
