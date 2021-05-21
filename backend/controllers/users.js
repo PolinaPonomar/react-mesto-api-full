@@ -92,9 +92,13 @@ const getUserById = (req, res, next) => {
 };
 
 const updateUserInfo = (req, res, next) => {
+  const update = {}; // объект, в который запишутся только те поля, которые хочет обновить юзер
+  const { name, about } = req.body;
+  if (name !== undefined) { update.name = name; }
+  if (about !== undefined) { update.about = about; }
   User.findByIdAndUpdate(
     req.user._id,
-    { name: req.body.name, about: req.body.about },
+    update,
     {
       new: true,
       runValidators: true,
@@ -117,9 +121,12 @@ const updateUserInfo = (req, res, next) => {
 };
 
 const updateAvatar = (req, res, next) => {
+  const update = {};
+  const { avatar } = req.body;
+  if (avatar !== undefined) { update.avatar = avatar; }
   User.findByIdAndUpdate(
     req.user._id,
-    { avatar: req.body.avatar },
+    update,
     {
       new: true,
       runValidators: true,
