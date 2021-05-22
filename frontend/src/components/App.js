@@ -104,7 +104,6 @@ function App() {
                     localStorage.setItem('jwt', data.token); // сохраняем токен пользователя
                     tokenCheck();
                     setLoggedIn(true);
-                    api.updateAuthorizationToken(); //обновить информация о токене для api
                     Promise.all([api.getUserInfo(), api.getInitialCards()])
                         .then(([dataUserInfo, dataCards]) => {
                             setCurrentUser(dataUserInfo);
@@ -125,7 +124,8 @@ function App() {
     const tokenCheck = () => {
         if (localStorage.getItem('jwt')) {
             const jwt = localStorage.getItem('jwt');
-            if (jwt) { //если с токеном все ок  
+            if (jwt) { //если с токеном все ок 
+                api.updateAuthorizationToken(); // обновить информация о токене для api 
                 auth.getContent(jwt)
                 .then((data) => {
                     if (data.email) { //проверяем, есть ли у пришедших данных емайл
