@@ -13,7 +13,7 @@ const { usersRouter } = require('./routes/users');
 const { cardsRouter } = require('./routes/cards');
 const { otherWaysRouter } = require('./routes/otherWays');
 
-const { PORT = 3005, MONGO_URL = 'mongodb://localhost:27017/mestodb' } = process.env;
+const { PORT = 3000, MONGO_URL = 'mongodb://localhost:27017/mestodb' } = process.env;
 
 const app = express();
 
